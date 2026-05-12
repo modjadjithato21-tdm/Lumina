@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Events | Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout-bar">
+        <div class="logo-area">
+            <h1>✨ Lumina Events</h1>
+            <p>Rent • Decorate • Illuminate</p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">🛍️ Rent Gear</a>
+            <a href="delivery.html" class="active">🚚 Checkout</a>
+            <a href="orders.html">📦 My Orders</a> 
+            <a href="chandelier.html">💡 Chandelier</a>
+            <a href="admin.html">🔧 Admin</a>
+            
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="stepper">
+            <div class="step done">1. Choose Items</div>
+            <div class="step active">2. Delivery & Extras</div>
+            <div class="step">3. Confirm</div>
+        </div>
+
+        <div class="page-title">🚚 Delivery & Extras</div>
+
+        <div class="checkout-summary">
+            <h2>Selected Items</h2>
+            <div id="cart-items"></div>
+        </div>
+
+        <div class="delivery-option">
+            <h2>Transport Delivery</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="delivery" value="yes" id="del-yes"> Yes - Delivery (R250)</label>
+                <label><input type="radio" name="delivery" value="no" id="del-no" checked> No - Pickup</label>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <label>Delivery Address:</label><br>
+                <textarea id="address" rows="3" style="width:100%; padding:1rem; border-radius:20px; border:1px solid #cbd5e1;" placeholder="Enter full address..."></textarea>
+                <div id="addressError" style="color:#c0392b; font-size:0.8rem; margin-top:0.3rem; display:none;">Address required for delivery.</div>
+            </div>
+
+            <button id="getLocationBtn" class="btn" style="margin-top:1rem;">📍 Auto Get My Location</button>
+            <input type="text" id="coordinates" placeholder="Coordinates (auto-filled)" style="width:100%; margin-top:0.5rem; padding:0.8rem; border-radius:40px;" readonly>
+        </div>
+
+        <div class="total-area">
+            <div>
+                <div class="total-label">Order Summary</div>
+                <div id="summary-subtotal">Items Subtotal: R0</div>
+                <div id="delivery-fee">Delivery Fee: R0</div>
+            </div>
+            <div style="text-align:right;">
+                <div class="grand-total" id="final-total">R0</div>
+                <button id="placeOrderBtn" class="btn btn-primary">Continue to Confirmation →</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>© 2025 Lumina Events</footer>
+    <script type="module" src="js/delivery.js"></script>
+</body>
+</html>

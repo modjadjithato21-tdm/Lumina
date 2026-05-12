@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Events | Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout-bar">
+        <div class="logo-area">
+            <h1>✨ Lumina Events</h1>
+            <p>Rent • Decorate • Illuminate</p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">🛍️ Rent Gear</a>
+            <a href="delivery.html">🚚 Checkout</a>
+            <a href="chandelier.html">💡 Chandelier</a>
+            <a href="orders.html">📦 My Orders</a>
+            <a href="admin.html" class="active">🔧 Admin</a>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="page-title">🔧 Admin Dashboard</div>
+
+        <div class="checkout-summary">
+            <h3>Add New Product or Service</h3>
+            
+            <input type="text" id="prodName" placeholder="Name" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
+            <input type="text" id="prodDesc" placeholder="Description" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
+            <input type="number" id="prodPrice" placeholder="Price (R)" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
+            <input type="number" id="prodStock" placeholder="Stock / Quantity" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
+            
+            <select id="prodCategory" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
+                <option value="Speakers">Speakers</option>
+                <option value="Tents">Tents</option>
+                <option value="Tables & Chairs">Tables & Chairs</option>
+                <option value="Chandeliers">Chandeliers</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div style="margin:1rem 0;">
+                <label>Upload Image:</label><br>
+                <input type="file" id="prodImageUpload" accept="image/*">
+                <input type="hidden" id="prodImage">
+                <div id="imagePreview" style="margin-top:0.5rem;"></div>
+            </div>
+
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button id="addProductBtn" class="btn btn-primary">Add New Product</button>
+                <button id="addServiceBtn" class="btn" style="background:#6b21a8;">Add New Service</button>
+            </div>
+        </div>
+
+        <!-- Products List -->
+        <div class="checkout-summary">
+            <h3>All Products & Services</h3>
+            <div id="productsList"></div>
+        </div>
+
+        <!-- Orders -->
+        <div class="checkout-summary">
+            <h3>Recent Bookings</h3>
+            <div id="ordersList"></div>
+        </div>
+    </main>
+
+    <!-- Edit Product Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeEditModal">&times;</span>
+            <h3>✏️ Edit Product</h3>
+            <input type="hidden" id="editProdId">
+            <input type="text" id="editName" placeholder="Name">
+            <input type="text" id="editDesc" placeholder="Description">
+            <input type="number" id="editPrice" placeholder="Price (R)">
+            <input type="number" id="editStock" placeholder="Stock">
+            <select id="editCategory">
+                <option value="Speakers">Speakers</option>
+                <option value="Tents">Tents</option>
+                <option value="Tables & Chairs">Tables & Chairs</option>
+                <option value="Chandeliers">Chandeliers</option>
+                <option value="Other">Other</option>
+            </select>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button id="saveEditBtn" class="btn btn-primary">Save Changes</button>
+                <button id="cancelEditBtn" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>© 2025 Lumina Events</footer>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Events | Chandelier Services</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout-bar">
+        <div class="logo-area">
+            <h1>✨ Lumina Events</h1>
+            <p>Rent • Decorate • Illuminate</p>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">🛍️ Rent Gear</a>
+            <a href="delivery.html">🚚 Checkout</a>
+            <a href="orders.html">📦 My Orders</a>
+            <a href="chandelier.html" class="active">💡 Chandelier</a>
+            <a href="admin.html">🔧 Admin</a>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="page-title">💎 E & T Chandelier Specialists</div>
+        
+        <div style="text-align:center; margin:2rem 0;">
+            <img src="images/Logo.png" alt="E&T Chandelier" style="max-width:320px; border-radius:20px;">
+        </div>
+
+        <!-- Service Date Picker -->
+        <div class="page-title">📅 Select Service Date</div>
+        <input type="date" id="serviceDate" class="date-input" style="padding:1rem; font-size:1.1rem; border-radius:40px; border:1px solid #cbd5e1; margin-bottom:2rem;">
+
+        <h2 style="text-align:center; color:#1e6f3f;">Our Chandelier Products & Services</h2>
+
+        <!-- Container for multiple horizontal scroll rows -->
+        <div id="chandelierRowsContainer"></div>
+
+        <!-- Cart Total Area -->
+        <div class="total-area">
+            <div>
+                <div class="total-label">🛒 Cart Total</div>
+                <div class="total-amount" id="cartTotalDisplay">R0</div>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="proceedToCheckoutBtn">Proceed to Checkout →</button>
+                <button class="btn btn-outline" id="resetCartBtn">Reset Cart</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>© 2025 Lumina Events</footer>
+
+    <script type="module" src="js/chandelier.js"></script>
+</body>
+</html>
