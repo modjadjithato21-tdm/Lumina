@@ -12,13 +12,16 @@
             <h1>✨ Lumina Events</h1>
             <p>Rent • Decorate • Illuminate</p>
         </div>
-        <div class="nav-links">
+        <button class="burger" id="burgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">🛍️ Rent Gear</a>
-            <a href="delivery.html" class="active">🚚 Checkout</a>
-            <a href="orders.html">📦 My Orders</a> 
+            <a href="delivery.html">🚚 Checkout</a>
             <a href="chandelier.html">💡 Chandelier</a>
+            <a href="track.html">🔍 Track Order</a>
+            <a href="orders.html">📦 My Orders</a>
             <a href="admin.html">🔧 Admin</a>
-            
         </div>
     </div>
 
@@ -43,7 +46,12 @@
                 <label><input type="radio" name="delivery" value="no" id="del-no" checked> No - Pickup</label>
             </div>
 
-            <div style="margin-top: 1.5rem;">
+            <div style="margin-top: 1rem;">
+                <label>Your Email (for order updates):</label>
+                <input type="email" id="customerEmail" placeholder="you@example.com" required style="width:100%; padding:0.8rem; border-radius:40px;">
+            </div>
+
+            <div style="margin-top: 1rem;">
                 <label>Delivery Address:</label><br>
                 <textarea id="address" rows="3" style="width:100%; padding:1rem; border-radius:20px; border:1px solid #cbd5e1;" placeholder="Enter full address..."></textarea>
                 <div id="addressError" style="color:#c0392b; font-size:0.8rem; margin-top:0.3rem; display:none;">Address required for delivery.</div>
@@ -68,5 +76,13 @@
 
     <footer>© 2025 Lumina Events</footer>
     <script type="module" src="js/delivery.js"></script>
+    <script>
+        const burger = document.getElementById('burgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
 </body>
 </html>
