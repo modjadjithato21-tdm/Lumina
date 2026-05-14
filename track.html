@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order | Lumina Events</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout-bar">
+        <div class="logo-area">
+            <h1>✨ Lumina Events</h1>
+            <p>Rent • Decorate • Illuminate</p>
+        </div>
+        <button class="burger" id="burgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">🛍️ Rent Gear</a>
+            <a href="delivery.html">🚚 Checkout</a>
+            <a href="chandelier.html">💡 Chandelier</a>
+            <a href="track.html">🔍 Track Order</a>
+            <a href="orders.html">📦 My Orders</a>
+            <a href="admin.html">🔧 Admin</a>
+        </div>
+    </div>
+    <main class="container">
+        <div class="page-title">🔍 Track Your Order</div>
+        <div class="checkout-summary">
+            <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g., ORD1734567890)" style="width:100%; padding:0.8rem;">
+            <button id="trackBtn" class="btn btn-primary" style="margin-top:1rem;">Track Order</button>
+            <div id="trackResult" style="margin-top:1.5rem;"></div>
+        </div>
+    </main>
+    <footer>© 2025 Lumina Events</footer>
+    <script type="module" src="js/track.js"></script>
+    <script>
+        // Burger menu toggle
+        const burger = document.getElementById('burgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+        // Auto-fill order ID from URL parameter ?id=...
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderIdFromUrl = urlParams.get('id');
+        if (orderIdFromUrl) {
+            document.getElementById('orderIdInput').value = orderIdFromUrl;
+            // Optionally auto-click track button
+            document.getElementById('trackBtn').click();
+        }
+    </script>
+</body>
+</html>
