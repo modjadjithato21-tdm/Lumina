@@ -2,13 +2,14 @@ import { getCart, saveBooking, reduceStockFromCart, clearCart, formatZAR } from 
 
 let orderData = {};
 
-// ========== EMAILJS CONFIGURATION ==========
-const EMAILJS_PUBLIC_KEY = "k0zULqG8DbDVDF8rJ";
-const EMAILJS_SERVICE_ID = "service_qrpyajh";
-const EMAILJS_TEMPLATE_ID = "template_jg8gx5d";
-// ============================================
-
-emailjs.init(EMAILJS_PUBLIC_KEY);
+// Helper to copy text to clipboard
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Order ID copied to clipboard!");
+    }).catch(() => {
+        alert("Failed to copy. Please copy manually.");
+    });
+}
 
 function loadOrder() {
     const cart = getCart();
@@ -34,6 +35,7 @@ function renderSummary() {
     itemsHtml += `<p>🚚 Delivery: ${orderData.deliveryOption} – ${formatZAR(orderData.deliveryFee)}</p>`;
     itemsHtml += `<p>📍 Delivery address: <strong>${orderData.address || "Not provided"}</strong></p>`;
     itemsHtml += `<p>📌 Coordinates: ${orderData.coordinates || "Not provided"}</p>`;
+    itemsHtml += `<p>📧 Your email: ${orderData.customerEmail || "Not provided"}</p>`;
     itemsHtml += `<p>🛡️ Deposit (30%): ${formatZAR(orderData.depositAmount)}</p>`;
     itemsHtml += `<h2>💵 Grand total: ${formatZAR(orderData.grandTotal)}</h2>`;
     container.innerHTML = itemsHtml;
@@ -58,43 +60,20 @@ function shareWhatsApp() {
     msg += `\n📌 *Coordinates:* ${orderData.coordinates || "Not provided"}`;
     msg += `\n🛡️ *Deposit:* ${formatZAR(orderData.depositAmount)}`;
     msg += `\n💰 *Total:* ${formatZAR(orderData.grandTotal)}`;
+    msg += `\n📧 *Email:* ${orderData.customerEmail || "Not provided"}`;
     msg += `\n\n_We will contact you within 24h._`;
     const url = `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
 }
 
+// EmailJS is commented out – enable later if needed
 async function sendOrderEmail() {
-    const customerName = orderData.address.split(',')[0] || "Customer";
-    const itemsForEmail = orderData.items.map(i => ({
-        name: i.name,
-        quantity: i.quantity,
-        price: formatZAR(i.price * i.quantity)
-    }));
-
-    const templateParams = {
-        to_email: "modjadjithato21@gmail.com",
-        order_id: "ORD" + Date.now(),
-        customer_name: customerName,
-        customer_email: "customer@example.com",  // Optional – you can add an email field later
-        event_date: orderData.date,
-        delivery_option: orderData.deliveryOption,
-        delivery_fee: formatZAR(orderData.deliveryFee),
-        delivery_address: orderData.address || "Not provided",
-        coordinates: orderData.coordinates || "Not provided",
-        items: itemsForEmail,
-        deposit: formatZAR(orderData.depositAmount),
-        total: formatZAR(orderData.grandTotal)
-    };
-
-    try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-        console.log("Order email sent to admin");
-    } catch (error) {
-        console.error("Email send failed:", error);
-    }
+    // Email sending is disabled for now
+    console.log("Email sending skipped – booking saved locally.");
 }
 
 async function finalConfirm() {
+    const orderId = "ORD" + Date.now();
     const booking = {
         items: orderData.items,
         deliveryOption: orderData.deliveryOption,
@@ -103,7 +82,11 @@ async function finalConfirm() {
         grandTotal: orderData.grandTotal,
         eventDate: orderData.date,
         address: orderData.address || "Not provided",
-        coordinates: orderData.coordinates || "Not provided"
+        coordinates: orderData.coordinates || "Not provided",
+        customerEmail: orderData.customerEmail || "Not provided",
+        id: orderId,
+        createdAt: new Date().toISOString(),
+        status: "Pending"
     };
     saveBooking(booking);
     reduceStockFromCart(orderData.items);
@@ -111,22 +94,31 @@ async function finalConfirm() {
     localStorage.removeItem("tempDelivery");
     localStorage.removeItem("selectedDate");
     
-    await sendOrderEmail();
+    // Optional: send email (uncomment if needed)
+    // await sendOrderEmail();
     
     const msgDiv = document.getElementById("confirmMsg");
     msgDiv.style.display = "block";
     msgDiv.innerHTML = `
         ✅ <strong>Booking request submitted!</strong><br><br>
-        We will contact you within 24 hours to confirm payment and final details.<br><br>
-        📞 You can also WhatsApp us at:<br>
+        <strong style="font-size:1.2rem;">Your Order ID: ${orderId}</strong><br>
+        <button id="copyOrderIdBtn" class="btn btn-outline" style="margin:0.5rem 0; padding:0.3rem 1rem;">📋 Copy Order ID</button><br>
+        <em>Please save this ID to track your order.</em><br><br>
+        We will contact you at <strong>${orderData.customerEmail || "your email"}</strong> within 24 hours.<br><br>
+        📞 WhatsApp us:<br>
         🛍️ Rent Gear: <a href="https://wa.me/27848350556">084 835 0556</a><br>
         💎 Chandelier: <a href="https://wa.me/27795391530">079 539 1530</a><br><br>
-        📧 A confirmation email has been sent to our team.
+        <a href="track.html?id=${orderId}" class="btn btn-primary" style="text-decoration:none;">🔍 Track this Order</a>
     `;
     msgDiv.style.backgroundColor = "#e0f2e9";
     msgDiv.style.borderLeft = "4px solid #2e7d32";
     
-    setTimeout(() => { window.location.href = "orders.html"; }, 5000);
+    // Attach copy event after rendering
+    const copyBtn = document.getElementById("copyOrderIdBtn");
+    if (copyBtn) copyBtn.onclick = () => copyToClipboard(orderId);
+    
+    // Redirect after 8 seconds (give time to copy)
+    setTimeout(() => { window.location.href = "orders.html"; }, 8000);
 }
 
 document.getElementById("requestBookingBtn")?.addEventListener("click", () => {
