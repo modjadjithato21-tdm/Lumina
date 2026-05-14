@@ -12,26 +12,30 @@
             <h1>✨ Lumina Events</h1>
             <p>Rent • Decorate • Illuminate</p>
         </div>
-        <div class="nav-links">
+        <button class="burger" id="burgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">🛍️ Rent Gear</a>
             <a href="delivery.html">🚚 Checkout</a>
             <a href="chandelier.html">💡 Chandelier</a>
+            <a href="track.html">🔍 Track Order</a>
             <a href="orders.html">📦 My Orders</a>
-            <a href="admin.html" class="active">🔧 Admin</a>
+            <a href="admin.html">🔧 Admin</a>
         </div>
     </div>
 
     <main class="container">
         <div class="page-title">🔧 Admin Dashboard</div>
+        <button id="logoutAdminBtn" class="btn btn-outline" style="float:right;">🚪 Logout</button>
 
         <div class="checkout-summary">
             <h3>Add New Product or Service</h3>
-            
+            <!-- ... same form as before ... -->
             <input type="text" id="prodName" placeholder="Name" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
             <input type="text" id="prodDesc" placeholder="Description" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
             <input type="number" id="prodPrice" placeholder="Price (R)" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
             <input type="number" id="prodStock" placeholder="Stock / Quantity" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
-            
             <select id="prodCategory" style="width:100%; padding:0.8rem; margin:0.5rem 0; border-radius:40px;">
                 <option value="Speakers">Speakers</option>
                 <option value="Tents">Tents</option>
@@ -39,14 +43,12 @@
                 <option value="Chandeliers">Chandeliers</option>
                 <option value="Other">Other</option>
             </select>
-
             <div style="margin:1rem 0;">
                 <label>Upload Image:</label><br>
                 <input type="file" id="prodImageUpload" accept="image/*">
                 <input type="hidden" id="prodImage">
                 <div id="imagePreview" style="margin-top:0.5rem;"></div>
             </div>
-
             <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button id="addProductBtn" class="btn btn-primary">Add New Product</button>
                 <button id="addServiceBtn" class="btn" style="background:#6b21a8;">Add New Service</button>
@@ -59,14 +61,17 @@
             <div id="productsList"></div>
         </div>
 
-        <!-- Orders -->
+        <!-- Orders with Export & Status -->
         <div class="checkout-summary">
-            <h3>Recent Bookings</h3>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                <h3>Recent Bookings</h3>
+                <button id="exportOrdersBtn" class="btn btn-outline">📥 Export CSV</button>
+            </div>
             <div id="ordersList"></div>
         </div>
     </main>
 
-    <!-- Edit Product Modal -->
+    <!-- Edit Product Modal (with image upload) -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" id="closeEditModal">&times;</span>
@@ -83,6 +88,12 @@
                 <option value="Chandeliers">Chandeliers</option>
                 <option value="Other">Other</option>
             </select>
+            <div style="margin:1rem 0;">
+                <label>Product Image:</label><br>
+                <input type="file" id="editImageUpload" accept="image/*">
+                <input type="hidden" id="editImageData">
+                <div id="editImagePreview" style="margin-top:0.5rem;"></div>
+            </div>
             <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button id="saveEditBtn" class="btn btn-primary">Save Changes</button>
                 <button id="cancelEditBtn" class="btn">Cancel</button>
@@ -91,7 +102,14 @@
     </div>
 
     <footer>© 2025 Lumina Events</footer>
-
     <script type="module" src="js/admin.js"></script>
+    <script>
+        const burger = document.getElementById('burgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+    </script>
 </body>
 </html>
