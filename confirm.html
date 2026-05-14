@@ -19,6 +19,7 @@
             <a href="index.html">🛍️ Rent Gear</a>
             <a href="delivery.html">🚚 Checkout</a>
             <a href="chandelier.html">💡 Chandelier</a>
+            <a href="track.html">🔍 Track Order</a>
             <a href="orders.html">📦 My Orders</a>
             <a href="admin.html">🔧 Admin</a>
         </div>
@@ -44,17 +45,18 @@
     <footer>© 2025 Lumina Events</footer>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>
-        // Burger menu toggle
-        const burger = document.getElementById('burgerBtn');
-        const navLinks = document.getElementById('navLinks');
-        if (burger && navLinks) {
-            burger.addEventListener('click', () => navLinks.classList.toggle('active'));
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => navLinks.classList.remove('active'));
-            });
-        }
-    </script>
     <script type="module" src="js/confirm.js"></script>
+    <script>
+        (function() {
+            const burger = document.getElementById('burgerBtn');
+            const navLinks = document.getElementById('navLinks');
+            if (burger && navLinks) {
+                burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => navLinks.classList.remove('active'));
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
