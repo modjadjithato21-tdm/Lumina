@@ -8,14 +8,18 @@
 </head>
 <body>
     <div class="layout-bar">
-        <div class="logo-area">
-            <h1>✨ Lumina Events</h1>
-            <p>Rent • Decorate • Illuminate</p>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">🛍️ Rent Gear</a>
+    <div class="logo-area">
+        <h1>✨ Lumina Events</h1>
+        <p>Rent • Decorate • Illuminate</p>
+    </div>
+    <button class="burger" id="burgerBtn">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+            <a href="index.html">🛍️ Rent Gear</a>
             <a href="delivery.html">🚚 Checkout</a>
             <a href="chandelier.html">💡 Chandelier</a>
+            <a href="track.html">🔍 Track Order</a>
             <a href="orders.html">📦 My Orders</a>
             <a href="admin.html">🔧 Admin</a>
         </div>
@@ -51,5 +55,22 @@
     </footer>
 
     <script type="module" src="js/index.js"></script>
+
+    <script>
+    // Burger menu toggle
+    const burger = document.getElementById('burgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+</script>
 </body>
 </html>
